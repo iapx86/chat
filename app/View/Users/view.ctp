@@ -76,6 +76,7 @@
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Data'), array('controller' => 'data', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout')); ?> </li>
 		</ul>
 	</div>
 </div>

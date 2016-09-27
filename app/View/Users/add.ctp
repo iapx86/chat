@@ -19,5 +19,6 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Data'), array('controller' => 'data', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Data'), array('controller' => 'data', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout')); ?> </li>
 	</ul>
 </div>
