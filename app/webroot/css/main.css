@@ -742,6 +742,10 @@ pre {
 	display:none;
 }
 
-#header_menu{
+#header_menu {
 	text-align: right;
+}
+
+#main {
+	margin-top: 1em;
 }

@@ -45,6 +45,10 @@ class DataController extends AppController {
  * @return boolean
  */
 	public function isAuthorized($user) {
+		// 登録済ユーザー
+		if ($this->action === 'room' || $this->action === 'get' || $this->action === 'post') {
+			return true;
+		}
 		return parent::isAuthorized($user);
 	}
 
@@ -137,5 +141,38 @@ class DataController extends AppController {
 			$this->Flash->error(__('The data could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+/**
+ * room method
+ *
+ * @return void
+ */
+	public function room() {
+		$this->set('user', $this->Auth->user());
+	}
+
+/**
+ * get method
+ *
+ * @return void
+ */
+	public function get() {
+		$this->viewClass = 'Json';
+		$this->set('data', $this->Data->find('all', array('order' => 'Data.created DESC')));
+		$this->set('_serialize','data');
+	}
+
+/**
+ * post method
+ *
+ * @return void
+ */
+	public function post() {
+		$this->autoRender = false;
+		if ($this->request->is('post')) {
+			$this->Data->create();
+			$this->Data->save($this->request->data);
+		}
 	}
 }
