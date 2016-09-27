@@ -1,10 +1,11 @@
 function update(){
 	$.getJSON('get', function(data){
-		var i, html;
+		var i, html, user_id = $('#user_id').val(), role = $('#role').val();
 		for(html = '<hr>', i = 0; i < data.length; i++){
 			html += '<b>' + h(data[i]['User']['username']) + '</b> ' + h(data[i]['Data']['message']);
 			html += ' (' + h(data[i]['Data']['created']) + ') ';
-			html += '<a href="javascript:d(' + data[i]['Data']['id'] + ')">delete</a>';
+			if (data[i]['Data']['user_id'] === user_id || role === 'admin')
+				html += '<a href="javascript:d(' + data[i]['Data']['id'] + ')">delete</a>';
 			html += '<hr>';
 		}
 		$('#main').html(html);

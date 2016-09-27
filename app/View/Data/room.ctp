@@ -3,6 +3,7 @@
 <div class="data form">
 	<?php
 	echo $this->Form->hidden('user_id' ,array('value' => $user['id']));
+	echo $this->Form->hidden('role' ,array('value' => $user['role']));
 	echo $this->Form->input('message');
 	?>
 	<div id="main">
