@@ -3,7 +3,9 @@ function update(){
 		var i, html;
 		for(html = '<hr>', i = 0; i < data.length; i++){
 			html += '<b>' + h(data[i]['User']['username']) + '</b> ' + h(data[i]['Data']['message']);
-			html += ' (' + h(data[i]['Data']['created']) + ')<hr>';
+			html += ' (' + h(data[i]['Data']['created']) + ') ';
+			html += '<a href="javascript:d(' + data[i]['Data']['id'] + ')">delete</a>';
+			html += '<hr>';
 		}
 		$('#main').html(html);
 	});
@@ -12,6 +14,11 @@ function update(){
 //HTMLエスケープ
 function h(text){
 	return text.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#039;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function d(id) {
+	if (window.confirm('Are you sure you want to delete # ' + id + '?'))
+		$.post('delete/' + id, update);
 }
 
 function submit() {
