@@ -15,7 +15,66 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'Flash');
+	public $components = array(
+		'Paginator',
+		'Session',
+		'Flash',
+		'Auth' => array(
+			'authenticate' => array(
+				'Form' => array(
+					'passwordHasher' => 'Blowfish',
+				),
+			),
+			'authorize' => array('Controller')
+		)
+	);
+
+/**
+ * beforeFilter method
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->deny('logout', 'index', 'view', 'edit', 'delete');
+	}
+
+/**
+ * isAuthorized method
+ *
+ * @return boolean
+ */
+	public function isAuthorized($user) {
+		// 登録済ユーザー
+		if ($this->action === 'add' || $this->action === 'login'  || $this->action === 'logout' ) {
+			return true;
+		}
+		return parent::isAuthorized($user);
+	}
+
+/**
+ * login method
+ *
+ * @return void
+ */
+	public function login() {
+		if ($this->request->is('post')) {
+			if ($this->Auth->login()) {
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('Invalid username or password, try again'));
+			}
+		}
+	}
+
+/**
+ * logout method
+ *
+ * @return void
+ */
+	public function logout() {
+		$this->redirect($this->Auth->logout());
+	}
 
 /**
  * index method
@@ -52,6 +111,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
+				$this->Auth->login();
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The user could not be saved. Please, try again.'));

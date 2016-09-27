@@ -15,7 +15,38 @@ class DataController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'Flash');
+	public $components = array(
+		'Paginator',
+		'Session',
+		'Flash',
+		'Auth' => array(
+			'authenticate' => array(
+				'Form' => array(
+					'passwordHasher' => 'Blowfish',
+				),
+			),
+			'authorize' => array('Controller'),
+		),
+	);
+
+/**
+ * beforeFilter method
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->deny();
+	}
+
+/**
+ * isAuthorized method
+ *
+ * @return boolean
+ */
+	public function isAuthorized($user) {
+		return parent::isAuthorized($user);
+	}
 
 /**
  * index method
