@@ -21,39 +21,34 @@ class User extends AppModel {
  */
 	public $validate = array(
 		'username' => array(
-			'maxLength' => array(
-				'rule' => array('maxLength'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'isUnique' => array(
+				'rule' => 'isUnique', //重複禁止
+				'message' => '既に存在しています',
 			),
-			'minLength' => array(
-				'rule' => array('minLength'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'alphaNumeric' => array(
+				'rule' => 'alphaNumeric',
+				'message' => '半角英数字のみです',
+			),
+			'valid' => array(
+				'rule' => array('between', 2, 32),
+				'message' => '2文字以上32文字以内でお願いします',
 			),
 		),
 		'password' => array(
-			'maxLength' => array(
-				'rule' => array('maxLength'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'alphaNumeric' => array(
+				'rule' => 'alphaNumeric',
+				'message' => '半角英数字のみです',
 			),
-			'minLength' => array(
-				'rule' => array('minLength'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'vaild' => array(
+				'rule' => array('between', 4, 32),
+				'message' => '4文字以上32文字以内でお願いします',
+			),
+		),
+		'role' => array(
+			'valid' => array(
+				'rule' => array('inList', array('admin', 'user')),
+				'message' => 'Please enter a valid role',
+				'allowEmpty' => false,
 			),
 		),
 	);
