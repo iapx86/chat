@@ -162,9 +162,12 @@ class DataController extends AppController {
  * @return void
  */
 	public function get() {
+		if (!$this->request->is('ajax')) {
+			return $this->redirect('/');
+		}
 		$this->viewClass = 'Json';
 		$this->set('data', $this->Data->find('all', array('order' => 'Data.created DESC')));
-		$this->set('_serialize','data');
+		$this->set('_serialize', 'data');
 	}
 
 /**
