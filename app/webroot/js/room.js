@@ -33,8 +33,8 @@ function submit() {
 }
 
 $(function(){
-	//1秒ごとに読み込み
-	setInterval(update, 1000);
+	//2秒ごとに読み込み
+	setInterval(update, 2000);
 
 	//キーを押したときの動作
 	$('#message').keypress(function (event) {
