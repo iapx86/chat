@@ -1,6 +1,7 @@
 <?php echo $this->Html->script('http://code.jquery.com/jquery-2.0.0.min.js'); ?>
 <?php echo $this->Html->script('room'); ?>
 <div class="data form">
+	<h2><?php echo __('Chat Room'); ?></h2>
 	<?php
 	echo $this->Form->hidden('user_id' ,array('value' => $user['id']));
 	echo $this->Form->hidden('role' ,array('value' => $user['role']));
