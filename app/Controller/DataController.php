@@ -49,6 +49,10 @@ class DataController extends AppController {
 		if ($this->action === 'room' || $this->action === 'get' || $this->action === 'post') {
 			return true;
 		}
+		// 投稿のオーナーは削除ができる
+		if ($this->action === 'delete' && $this->Data->isOwnedBy((int)$this->request->params['pass'][0], $user['id'])) {
+			return true;
+		}
 		return parent::isAuthorized($user);
 	}
 

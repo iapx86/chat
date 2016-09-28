@@ -75,4 +75,13 @@ class Data extends AppModel {
 			'order' => ''
 		)
 	);
+
+/**
+ * isOwnedBy method
+ *
+ * @return boolean
+ */
+	public function isOwnedBy($data, $user) {
+		return $this->field('id', array('id' => $data, 'user_id' => $user)) !== false;
+	}
 }
