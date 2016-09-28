@@ -23,7 +23,7 @@ function d(id) {
 }
 
 function submit() {
-	$.post('post', {user_id: $('#user_id').val(), message: $('#message').val()}, update);
+	$.post('post', {message: $('#message').val()}, update);
 	$('#message').val('');
 }
 
