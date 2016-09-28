@@ -1,11 +1,11 @@
 function update(){
 	$.getJSON('get', function(data){
-		var i, html, user_id = $('#user_id').val(), role = $('#role').val();
-		for(html = '<hr>', i = 0; i < data.length; i++){
-			html += '<b>' + h(data[i]['User']['username']) + '</b> ' + h(data[i]['Data']['message']);
-			html += ' (' + h(data[i]['Data']['created']) + ') ';
-			if (data[i]['Data']['user_id'] === user_id || role === 'admin')
-				html += '<a href="javascript:d(' + data[i]['Data']['id'] + ')">delete</a>';
+		var i, html = '<hr>', line, uid = $('#user_id').val(), role = $('#role').val();
+		for (i = 0; i < data.length; i++) {
+			line = data[i]['Data'];
+			html += '<b>' + h(data[i]['User']['username']) + '</b> ' + h(line['message']) + ' (' + h(line['created']) + ') ';
+			if (line['user_id'] === uid || role === 'admin')
+				html += '<a href="javascript:d(' + line['id'] + ')">delete</a>';
 			html += '<hr>';
 		}
 		$('#main').html(html);
@@ -23,8 +23,7 @@ function d(id) {
 }
 
 function submit() {
-	var data = {user_id: $('#user_id').val(), message: $('#message').val()};
-	$.post('post', data, update);
+	$.post('post', {user_id: $('#user_id').val(), message: $('#message').val()}, update);
 	$('#message').val('');
 }
 
