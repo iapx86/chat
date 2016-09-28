@@ -77,7 +77,7 @@
 		<ul>
 			<li><?php echo $this->Html->link(__('New Data'), array('controller' => 'data', 'action' => 'add')); ?> </li>
 			<li><?php echo $this->Html->link(__('Chat Room'), array('controller' => 'data', 'action' => 'room')); ?> </li>
-			<li><?php echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout')); ?> </li>
+			<li><?php echo $this->Html->link(__('Logout'), array('action' => 'logout')); ?> </li>
 		</ul>
 	</div>
 </div>
