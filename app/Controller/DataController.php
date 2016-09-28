@@ -175,6 +175,7 @@ class DataController extends AppController {
 	public function post() {
 		$this->autoRender = false;
 		if ($this->request->is('post')) {
+			$this->request->data['user_id'] = $this->Auth->user('id');
 			$this->Data->create();
 			$this->Data->save($this->request->data);
 		}
