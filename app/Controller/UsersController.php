@@ -68,12 +68,13 @@ class UsersController extends AppController {
 	}
 
 /**
- * add method
+ * register method
  *
  * @return void
  */
 	public function register() {
 		if ($this->request->is('post')) {
+			$this->request->data['User']['role'] = 'user';
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
