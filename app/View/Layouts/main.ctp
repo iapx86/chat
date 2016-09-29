@@ -49,7 +49,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<h3>
 				<?php
 				if (isset($user)) {
-					echo $this->Html->link($user['username'], '/users/logout');
+					echo $this->Html->link($user['username'], array('controller' => 'users', 'action' => 'logout'));
 				}
 				else {
 //					echo $this->Html->link('Login', '/users/login'), ' ';
