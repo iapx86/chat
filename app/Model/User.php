@@ -22,31 +22,41 @@ class User extends AppModel {
  */
 	public $validate = array(
 		'username' => array(
-			'isUnique' => array(
+			array(
 				'rule' => 'isUnique', //重複禁止
 				'message' => '既に存在しています',
 			),
-			'alphaNumeric' => array(
+			array(
 				'rule' => 'alphaNumeric',
 				'message' => '半角英数字のみです',
 			),
-			'valid' => array(
+			array(
 				'rule' => array('between', 2, 32),
 				'message' => '2文字以上32文字以内でお願いします',
 			),
 		),
 		'password' => array(
-			'alphaNumeric' => array(
+			array(
 				'rule' => 'alphaNumeric',
 				'message' => '半角英数字のみです',
 			),
-			'vaild' => array(
+			array(
 				'rule' => array('between', 4, 32),
 				'message' => '4文字以上32文字以内でお願いします',
 			),
+			array(
+				'rule' => 'passwordConfirm',
+				'message' => 'パスワードが一致していません'
+			),
+		),
+		'password_confirm' => array(
+			array(
+				'rule' => 'notBlank',
+				'message' => 'パスワード(確認)を入力してください'
+			),
 		),
 		'role' => array(
-			'valid' => array(
+			array(
 				'rule' => array('inList', array('admin', 'user')),
 				'message' => 'Please enter a valid role',
 				'allowEmpty' => false,
@@ -87,4 +97,11 @@ class User extends AppModel {
 		return true;
 	}
 
+	public function passwordConfirm($check){
+		if($this->data['User']['password'] === $this->data['User']['password_confirm']){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
