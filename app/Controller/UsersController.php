@@ -36,7 +36,7 @@ class UsersController extends AppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->deny('logout', 'index', 'view', 'edit', 'delete');
+		$this->Auth->deny('logout', 'index', 'view', 'add', 'edit', 'delete');
 	}
 
 /**
@@ -46,7 +46,7 @@ class UsersController extends AppController {
  */
 	public function isAuthorized($user) {
 		// 登録済ユーザー
-		if ($this->action === 'add' || $this->action === 'login'  || $this->action === 'logout' ) {
+		if ($this->action === 'register' || $this->action === 'login'  || $this->action === 'logout' ) {
 			return true;
 		}
 		return parent::isAuthorized($user);
@@ -63,6 +63,24 @@ class UsersController extends AppController {
 				return $this->redirect(array('controller' => 'data', 'action' => 'room'));
 			} else {
 				$this->Flash->error(__('Invalid username or password, try again'));
+			}
+		}
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function register() {
+		if ($this->request->is('post')) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
+				$this->Flash->success(__('The user has been saved.'));
+				$this->Auth->login();
+				return $this->redirect(array('controller' => 'data', 'action' => 'room'));
+			} else {
+				$this->Flash->error(__('The user could not be saved. Please, try again.'));
 			}
 		}
 	}
@@ -111,8 +129,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
-				$this->Auth->login();
-				return $this->redirect(array('controller' => 'data', 'action' => 'room'));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The user could not be saved. Please, try again.'));
 			}

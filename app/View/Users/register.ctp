@@ -1,19 +1,19 @@
 <div class="users form">
-<?php echo $this->Flash->render('auth'); ?>
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Please enter your username and password'); ?></legend>
+		<legend><?php echo __('Register User'); ?></legend>
 	<?php
 		echo $this->Form->input('username');
 		echo $this->Form->input('password');
+		echo $this->Form->hidden('role' ,array('value' => 'user'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Login')); ?>
+<?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'register')); ?></li>
+		<li><?php echo $this->Html->link(__('Login'), array('action' => 'login')); ?> </li>
 	</ul>
 </div>
