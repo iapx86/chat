@@ -19,6 +19,7 @@ class UsersController extends AppController {
 		'Paginator',
 		'Session',
 		'Flash',
+		'Security',
 		'Auth' => array(
 			'authenticate' => array(
 				'Form' => array(
@@ -37,6 +38,7 @@ class UsersController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->deny('logout', 'index', 'view', 'add', 'edit', 'delete');
+		$this->Security->blackHoleCallback = 'blackhole';
 	}
 
 /**
@@ -180,5 +182,10 @@ class UsersController extends AppController {
 			$this->Flash->error(__('The user could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function blackhole($type) {
+		$this->Session->setFlash('不正なリクエストが行われました');
+		$this->redirect(array('controller' => $this->controller, 'action' => $this->action));
 	}
 }

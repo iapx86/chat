@@ -19,6 +19,7 @@ class DataController extends AppController {
 		'Paginator',
 		'Session',
 		'Flash',
+		'Security',
 		'Auth' => array(
 			'authenticate' => array(
 				'Form' => array(
@@ -37,6 +38,8 @@ class DataController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->deny();
+		$this->Security->unlockedActions = array('post');
+		$this->Security->blackHoleCallback = 'blackhole';
 	}
 
 /**
@@ -182,5 +185,10 @@ class DataController extends AppController {
 			$this->Data->create();
 			$this->Data->save($this->request->data);
 		}
+	}
+
+	public function blackhole($type) {
+		$this->Session->setFlash('不正なリクエストが行われました');
+		$this->redirect(array('controller' => $this->controller, 'action' => $this->action));
 	}
 }

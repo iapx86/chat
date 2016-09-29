@@ -35,6 +35,7 @@ class AppController extends Controller {
 		'DebugKit.Toolbar',
 		'Session',
 		'Flash',
+		'Security',
 		'Auth' => array(
 			'authenticate' => array(
 				'Form' => array(
